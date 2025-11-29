@@ -1,0 +1,13 @@
+前端：
+vue打包后生成dict文件夹 使用nginx代理到服务器 但是路径转发存在问题 所以通过default.conf文件来将API请求转发到后端服务 所以多了一个default.conf文件
+后端：
+使用jdk1.8 后端在admin文件夹下打成jar包后，直接编写dockerfile文件运行即可 其中遇到验证码无法解析的问题  Java 图形界面（AWT）相关的字体配置缺失，导致生成验证码时抛出空指针异常 是因为docker容器缺少字体文件和配置 最终重新构建全面的docker基础镜像解决
+mysql：
+使用mysql8.0 需要将后端配置中的mysql配置ip及端口和数据库名称对应上 正常拉取镜像构建容器 并使用本地连接 将RuoYi框架的sql文件导入到该数据库中 8.0可能会遇到客户端连不上的问题，通过一下方式可以解决：
+# -- 登录后执行（修改root用户的认证插件） 修改后即可登录成功
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+FLUSH PRIVILEGES;
+redis：
+redis正常启动存储 提前将后端中的配置路径设置为服务器ip即可
+# my-app是后端文件
+# nginx是前端配置文件及default.conf配置文件 启动nginx时需要正常的目录挂载
